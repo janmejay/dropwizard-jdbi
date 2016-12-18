@@ -1,16 +1,16 @@
 package com.example;
 
-import com.example.dao.PersonDAO;
-import com.example.resources.PersonResource;
+import com.example.dao.ShoppingCartDAO;
+import com.example.resources.ShoppingCartResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.jdbi.DBIFactory;
 import org.skife.jdbi.v2.DBI;
 
-public class ExampleApplication extends Application<ExampleConfiguration> {
+public class ShoppingCartApplication extends Application<ExampleConfiguration> {
     public static void main(String[] args) throws Exception {
-        new ExampleApplication().run(args);
+        new ShoppingCartApplication().run(args);
     }
 
     @Override
@@ -27,9 +27,9 @@ public class ExampleApplication extends Application<ExampleConfiguration> {
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "h2");
 
-        final PersonDAO personDAO = jdbi.onDemand(PersonDAO.class);
-        final PersonResource personResource = new PersonResource(personDAO);
+        final ShoppingCartDAO shoppingCartDAO = jdbi.onDemand(ShoppingCartDAO.class);
+        final ShoppingCartResource shoppingCartResource = new ShoppingCartResource(shoppingCartDAO);
 
-        environment.jersey().register(personResource);
+        environment.jersey().register(shoppingCartResource);
     }
 }

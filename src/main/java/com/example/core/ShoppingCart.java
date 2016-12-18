@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
-public class Person {
+public class ShoppingCart {
 
     @NotNull
     @JsonProperty
@@ -14,11 +14,11 @@ public class Person {
     @JsonProperty
     private String name;
 
-    public Person() {
+    public ShoppingCart() {
         // Jackson deserialization
     }
 
-    public Person(int id, String name) {
+    public ShoppingCart(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -34,9 +34,9 @@ public class Person {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Person)) return false;
+        if (!(o instanceof ShoppingCart)) return false;
 
-        Person that = (Person) o;
+        ShoppingCart that = (ShoppingCart) o;
 
         if (!getId().equals(that.getId())) return false;
         if (!getName().equals(that.getName())) return false;
