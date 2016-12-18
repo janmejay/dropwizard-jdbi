@@ -10,6 +10,6 @@ import java.sql.SQLException;
 
 public class ShoppingCartMapper implements ResultSetMapper<ShoppingCart> {
     public ShoppingCart map(int index, ResultSet resultSet, StatementContext statementContext) throws SQLException {
-        return new ShoppingCart(resultSet.getInt("ID"), resultSet.getString("EMAIL"));
+        return new ShoppingCart(resultSet.getInt("ID"), resultSet.getString("EMAIL"), resultSet.getInt("ITEM_COUNT"), resultSet.getInt("ITEM_QUANTITY"));
     }
 }

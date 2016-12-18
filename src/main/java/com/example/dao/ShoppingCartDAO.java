@@ -18,4 +18,7 @@ public interface ShoppingCartDAO {
 
     @SqlUpdate("insert into CARTS (NAME) values (:email)")
     int insert(@BindBean ShoppingCart shoppingCart);
+
+    @SqlUpdate("update CARTS set ITEM_COUNT = :itemCount, ITEM_QUANTITY = :itemQuantity where ID = :id")
+    void update(@BindBean ShoppingCart shoppingCart);
 }

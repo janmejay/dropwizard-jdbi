@@ -19,13 +19,23 @@ public class ShoppingCart {
     @JsonProperty
     private Set<CartItem> items = new HashSet<>();
 
+    @NotNull
+    @JsonProperty
+    private int itemQuantity;
+
+    @NotNull
+    @JsonProperty
+    private int itemCount;
+
     public ShoppingCart() {
         // Jackson deserialization
     }
 
-    public ShoppingCart(int id, String email) {
+    public ShoppingCart(int id, String email, int itemCount, int itemQuantity) {
         this.id = id;
         this.email = email;
+        this.itemCount = itemCount;
+        this.itemQuantity = itemQuantity;
     }
 
     public Integer getId() {
@@ -66,5 +76,21 @@ public class ShoppingCart {
 
     public Set<CartItem> getItems() {
         return items;
+    }
+
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
+    }
+
+    public void setItemCount(int itemCount) {
+        this.itemCount = itemCount;
+    }
+
+    public int getItemQuantity() {
+        return itemQuantity;
+    }
+
+    public int getItemCount() {
+        return itemCount;
     }
 }
