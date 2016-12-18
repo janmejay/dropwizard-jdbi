@@ -1,55 +1,34 @@
 package com.example.resources;
 
+import com.example.core.CartItem;
 import com.example.core.ShoppingCart;
-import com.example.dao.ShoppingCartDAO;
+import com.example.service.CartService;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 @Path("/cart")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
 public class ShoppingCartResource {
+    CartService cartService;
 
-    ShoppingCartDAO shoppingCartDAO;
-
-    public ShoppingCartResource(ShoppingCartDAO shoppingCartDAO) {
-        this.shoppingCartDAO = shoppingCartDAO;
-    }
-
-    @GET
-    public List<ShoppingCart> getAll(){
-        return shoppingCartDAO.getAll();
+    public ShoppingCartResource(CartService cartService) {
+        this.cartService = cartService;
     }
 
     @GET
     @Path("/{email}")
     public ShoppingCart get(@PathParam("email") String email){
-        return shoppingCartDAO.findByEmail(email);
+        return cartService.getCartByEmail(email);
     }
 
     @POST
-    public ShoppingCart add(@Valid ShoppingCart shoppingCart) {
-        shoppingCartDAO.insert(shoppingCart);
-
-        return shoppingCart;
-    }
-
-    @PUT
-    @Path("/{id}")
-    public ShoppingCart update(@PathParam("id") Integer id, @Valid ShoppingCart shoppingCart) {
-        ShoppingCart updateShoppingCart = new ShoppingCart(id, shoppingCart.getEmail());
-
-        shoppingCartDAO.update(updateShoppingCart);
-
-        return updateShoppingCart;
-    }
-
-    @DELETE
-    @Path("/{id}")
-    public void delete(@PathParam("id") Integer id) {
-        shoppingCartDAO.deleteById(id);
+    @Path("/{email}/add")
+    public void add(@PathParam("email") String email, @Valid CartItem cartItem) {
+        ShoppingCart cart = cartService.getCartByEmail(email);
+        cart.addItem(cartItem);
+        cartService.save(cart);
     }
 }

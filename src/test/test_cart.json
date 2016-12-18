@@ -1,0 +1,9 @@
+{
+  "email": "goof@foo.com",
+  "items": [
+    {
+      "productName": "Goofy Posters",
+      "quantity": 3
+    }
+  ]
+}
