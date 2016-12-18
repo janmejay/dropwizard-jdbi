@@ -1,8 +1,10 @@
 package com.example.resources;
 
 import com.example.core.CartItem;
+import com.example.core.CartUpdateMessage;
 import com.example.core.ShoppingCart;
-import com.example.service.CartService;
+import com.example.dao.CartService;
+import com.example.remote.NotificationService;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -12,10 +14,12 @@ import javax.ws.rs.core.MediaType;
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
 public class ShoppingCartResource {
-    CartService cartService;
+    final CartService cartService;
+    final NotificationService notificationService;
 
-    public ShoppingCartResource(CartService cartService) {
+    public ShoppingCartResource(CartService cartService, NotificationService notificationService) {
         this.cartService = cartService;
+        this.notificationService = notificationService;
     }
 
     @GET
@@ -26,9 +30,10 @@ public class ShoppingCartResource {
 
     @POST
     @Path("/{email}/add")
-    public void add(@PathParam("email") String email, @Valid CartItem cartItem) {
+    public String add(@PathParam("email") String email, @Valid CartItem cartItem) {
         ShoppingCart cart = cartService.getCartByEmail(email);
         cart.addItem(cartItem);
-        cartService.save(cart);
+        cartService.save(cart, notificationService::sendCartUpdateMessage);
+        return "Added successfully";
     }
 }

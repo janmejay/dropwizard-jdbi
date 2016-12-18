@@ -2,9 +2,23 @@ server:
   applicationConnectors:
     - type: http
       port: 8095
+      acceptorThreads: 1
+      selectorThreads: 1
   adminConnectors:
     - type: http
       port: 8096
+      acceptorThreads: 1
+      selectorThreads: 1
+  minThreads: 5
+  maxThreads: 6
+  requestLog:
+    appenders:
+      - type: file
+        currentLogFilename: /tmp/cart_access.log
+        threshold: ALL
+        archive: true
+        archivedLogFilenamePattern: /tmp/cart_access.%d.log.gz
+        archivedFileCount: 2
 
 database:
   driverClass: com.mysql.jdbc.Driver
@@ -15,8 +29,27 @@ database:
     charSet: UTF-8
   maxWaitForConnection: 1s
   validationQuery: "/* MyService Health Check */ SELECT 1"
-  minSize: 8
-  maxSize: 32
+  minSize: 1
+  maxSize: 2
+  maxWaitForConnection: 100 minute
+  initialSize: 1
   checkConnectionWhileIdle: false
-  evictionInterval: 10s
-  minIdleTime: 1 minute
+  evictionInterval: 1000s
+  minIdleTime: 100 minute
+
+logging:
+  level: INFO
+  appenders:
+    - type: file
+      currentLogFilename: /tmp/cart.log
+      threshold: ALL
+      archive: true
+      archivedLogFilenamePattern: /tmp/cart-%d.log
+      archivedFileCount: 5
+      timeZone: UTC
+      logFormat: "%-5level [%date{ISO8601}] [%X{MDC_VAR}] [%thread]: %c:%method:%line- %msg%n"
+
+httpClient:
+  timeout: 10000s
+  connectionTimeout: 10000s
+  connectionRequestTimeout: 10000s

@@ -27,6 +27,7 @@ dependencies {
     compile (
         'io.dropwizard:dropwizard-core:' + dropwizardVersion,
         'io.dropwizard:dropwizard-jdbi:' + dropwizardVersion,
+        'io.dropwizard:dropwizard-client:' + dropwizardVersion,
         'mysql:mysql-connector-java:5.1.34'
     )
     testCompile (
