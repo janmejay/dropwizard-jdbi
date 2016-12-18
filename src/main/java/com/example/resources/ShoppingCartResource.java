@@ -25,9 +25,9 @@ public class ShoppingCartResource {
     }
 
     @GET
-    @Path("/{id}")
-    public ShoppingCart get(@PathParam("id") Integer id){
-        return shoppingCartDAO.findById(id);
+    @Path("/{email}")
+    public ShoppingCart get(@PathParam("email") String email){
+        return shoppingCartDAO.findByEmail(email);
     }
 
     @POST
@@ -40,7 +40,7 @@ public class ShoppingCartResource {
     @PUT
     @Path("/{id}")
     public ShoppingCart update(@PathParam("id") Integer id, @Valid ShoppingCart shoppingCart) {
-        ShoppingCart updateShoppingCart = new ShoppingCart(id, shoppingCart.getName());
+        ShoppingCart updateShoppingCart = new ShoppingCart(id, shoppingCart.getEmail());
 
         shoppingCartDAO.update(updateShoppingCart);
 

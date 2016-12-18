@@ -1,3 +1,3 @@
-insert into CARTS (ID, NAME) values (1, 'Axel');
-insert into CARTS (ID, NAME) values (2, 'Mr. Foo');
-insert into CARTS (ID, NAME) values (3, 'Ms. Bar');
+insert into CARTS (ID, EMAIL) values (1, 'bar@foo.com');
+insert into CARTS (ID, EMAIL) values (2, 'baz@foo.com');
+insert into CARTS (ID, EMAIL) values (3, 'quux@foo.com');

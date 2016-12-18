@@ -12,23 +12,23 @@ public class ShoppingCart {
 
     @NotNull
     @JsonProperty
-    private String name;
+    private String email;
 
     public ShoppingCart() {
         // Jackson deserialization
     }
 
-    public ShoppingCart(int id, String name) {
+    public ShoppingCart(int id, String email) {
         this.id = id;
-        this.name = name;
+        this.email = email;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ShoppingCart {
         ShoppingCart that = (ShoppingCart) o;
 
         if (!getId().equals(that.getId())) return false;
-        if (!getName().equals(that.getName())) return false;
+        if (!getEmail().equals(that.getEmail())) return false;
 
         return true;
     }

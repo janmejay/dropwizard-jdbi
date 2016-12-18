@@ -11,6 +11,6 @@ public class ShoppingCartMapper implements ResultSetMapper<ShoppingCart>
 {
     public ShoppingCart map(int index, ResultSet resultSet, StatementContext statementContext) throws SQLException
     {
-        return new ShoppingCart(resultSet.getInt("ID"), resultSet.getString("NAME"));
+        return new ShoppingCart(resultSet.getInt("ID"), resultSet.getString("EMAIL"));
     }
 }

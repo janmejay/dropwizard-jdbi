@@ -19,6 +19,9 @@ public interface ShoppingCartDAO {
     @SqlQuery("select * from CARTS where ID = :id")
     ShoppingCart findById(@Bind("id") int id);
 
+    @SqlQuery("select * from CARTS where EMAIL = :email")
+    ShoppingCart findByEmail(@Bind("email") String email);
+
     @SqlUpdate("delete from CARTS where ID = :id")
     int deleteById(@Bind("id") int id);
 
