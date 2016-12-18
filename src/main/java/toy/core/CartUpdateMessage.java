@@ -1,4 +1,4 @@
-package com.example.core;
+package toy.core;
 
 public class CartUpdateMessage {
     private final String text;

@@ -1,7 +1,6 @@
-package com.example.core.mapper;
+package toy.core.mapper;
 
-import com.example.core.CartItem;
-import com.example.core.ShoppingCart;
+import toy.core.ShoppingCart;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 

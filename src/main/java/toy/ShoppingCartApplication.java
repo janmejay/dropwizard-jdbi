@@ -1,9 +1,9 @@
-package com.example;
+package toy;
 
-import com.example.dao.CartItemDAO;
-import com.example.dao.CartService;
-import com.example.remote.NotificationService;
-import com.example.resources.ShoppingCartResource;
+import toy.dao.CartItemDAO;
+import toy.dao.CartService;
+import toy.remote.NotificationService;
+import toy.resources.ShoppingCartResource;
 import io.dropwizard.Application;
 import io.dropwizard.client.HttpClientBuilder;
 import io.dropwizard.jdbi.DBIFactory;

@@ -1,16 +1,14 @@
-package com.example.remote;
+package toy.remote;
 
-import com.example.core.CartUpdateMessage;
+import toy.core.CartUpdateMessage;
 import org.apache.http.HttpHost;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.client.WebTarget;
 import java.io.IOException;
 
 public class NotificationService {

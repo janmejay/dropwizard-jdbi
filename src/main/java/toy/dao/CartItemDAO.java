@@ -1,7 +1,7 @@
-package com.example.dao;
+package toy.dao;
 
-import com.example.core.CartItem;
-import com.example.core.mapper.CartItemMapper;
+import toy.core.CartItem;
+import toy.core.mapper.CartItemMapper;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;

@@ -1,10 +1,9 @@
-package com.example.resources;
+package toy.resources;
 
-import com.example.core.CartItem;
-import com.example.core.CartUpdateMessage;
-import com.example.core.ShoppingCart;
-import com.example.dao.CartService;
-import com.example.remote.NotificationService;
+import toy.core.CartItem;
+import toy.core.ShoppingCart;
+import toy.dao.CartService;
+import toy.remote.NotificationService;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -34,6 +33,6 @@ public class ShoppingCartResource {
         ShoppingCart cart = cartService.getCartByEmail(email);
         cart.addItem(cartItem);
         cartService.save(cart, notificationService::sendCartUpdateMessage);
-        return "Added successfully";
+        return "{\"message\" : \"Added successfully\"}\n";
     }
 }

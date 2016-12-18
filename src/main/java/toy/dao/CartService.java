@@ -1,9 +1,9 @@
-package com.example.dao;
+package toy.dao;
 
-import com.example.core.CartItem;
-import com.example.core.CartUpdateMessage;
-import com.example.core.ShoppingCart;
-import com.example.core.mapper.ShoppingCartMapper;
+import toy.core.CartItem;
+import toy.core.CartUpdateMessage;
+import toy.core.ShoppingCart;
+import toy.core.mapper.ShoppingCartMapper;
 import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
