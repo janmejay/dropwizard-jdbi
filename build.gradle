@@ -27,7 +27,7 @@ dependencies {
     compile (
         'io.dropwizard:dropwizard-core:' + dropwizardVersion,
         'io.dropwizard:dropwizard-jdbi:' + dropwizardVersion,
-        'com.h2database:h2:1.4.192'
+        'mysql:mysql-connector-java:5.1.34'
     )
     testCompile (
         'io.dropwizard:dropwizard-testing:' + dropwizardVersion
@@ -36,8 +36,10 @@ dependencies {
 
 // Configure flyway
 flyway {
-    url = 'jdbc:h2:file:./persondb'
-    user = 'sa'
+    url = 'jdbc:mysql://localhost:3306'
+    user = 'cartapp'
+    password = 'foobar'
+    schemas = ['bootcamp16']
 }
 
 // Configure the run task to start the Dropwizard service
