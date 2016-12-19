@@ -1,11 +1,11 @@
 package toy.dao;
 
+import org.skife.jdbi.v2.sqlobject.*;
+import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import toy.core.CartItem;
 import toy.core.CartUpdateMessage;
 import toy.core.ShoppingCart;
 import toy.core.mapper.ShoppingCartMapper;
-import org.skife.jdbi.v2.sqlobject.*;
-import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
 import java.util.List;
 import java.util.Set;
@@ -38,13 +38,15 @@ public abstract class CartService {
     }
 
     private void loadItems(ShoppingCart cart) {
-        List<CartItem> cartItems = cartItemDAO.loadItems(cart.getId());
-        cart.addItems(cartItems);
-        if (cart.getItemCount() != cartItems.size())
-            throw new IllegalStateException(String.format("De-normalized cart-item count %s doesn't match actual %s.", cart.getItemCount(), cartItems.size()));
-        int quantity = getQuantity(cart.getItems());
-        if (cart.getItemQuantity() != quantity) {
-            throw new IllegalStateException(String.format("De-normalized cart-item quantity %s doesn't match actual %s.", cart.getItemQuantity(), quantity));
+        if (cart != null) {
+            List<CartItem> cartItems = cartItemDAO.loadItems(cart.getId());
+            cart.addItems(cartItems);
+            if (cart.getItemCount() != cartItems.size())
+                throw new IllegalStateException(String.format("De-normalized cart-item count %s doesn't match actual %s.", cart.getItemCount(), cartItems.size()));
+            int quantity = getQuantity(cart.getItems());
+            if (cart.getItemQuantity() != quantity) {
+                throw new IllegalStateException(String.format("De-normalized cart-item quantity %s doesn't match actual %s.", cart.getItemQuantity(), quantity));
+            }
         }
     }
 

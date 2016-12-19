@@ -8,6 +8,7 @@ import toy.remote.NotificationService;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/cart")
 @Consumes({MediaType.APPLICATION_JSON})
@@ -24,7 +25,11 @@ public class ShoppingCartResource {
     @GET
     @Path("/{email}")
     public ShoppingCart get(@PathParam("email") String email){
-        return cartService.getCartByEmail(email);
+        ShoppingCart cart = cartService.getCartByEmail(email);
+        if (cart == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return cart;
     }
 
     @POST
