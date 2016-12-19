@@ -30,7 +30,7 @@ database:
   maxWaitForConnection: 1s
   validationQuery: "/* MyService Health Check */ SELECT 1"
   minSize: 1
-  maxSize: 1
+  maxSize: 2
   maxWaitForConnection: 100 minute
   initialSize: 1
   checkConnectionWhileIdle: false
