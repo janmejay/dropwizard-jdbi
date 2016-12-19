@@ -5,16 +5,15 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import toy.core.CartItem;
 import toy.core.CartUpdateMessage;
 import toy.core.ShoppingCart;
+import toy.core.mapper.CartItemMapper;
 import toy.core.mapper.ShoppingCartMapper;
 
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
-@RegisterMapper(ShoppingCartMapper.class)
+@RegisterMapper({ShoppingCartMapper.class, CartItemMapper.class})
 public abstract class CartService {
-    private CartItemDAO cartItemDAO;
-
     @SqlQuery("select * from CARTS where ID = :id")
     abstract ShoppingCart findById(@Bind("id") int id);
 
@@ -27,9 +26,11 @@ public abstract class CartService {
     @SqlUpdate("update CARTS set ITEM_COUNT = :itemCount, ITEM_QUANTITY = :itemQuantity where ID = :id")
     abstract void update(@BindBean ShoppingCart shoppingCart);
 
-    public void setCartItemDAO(CartItemDAO cartItemDAO) {
-        this.cartItemDAO = cartItemDAO;
-    }
+    @SqlQuery("select * from CART_ITEMS where CART_ID = :cart_id")
+    abstract List<CartItem> loadItems(@Bind("cart_id") int cartId);
+
+    @SqlUpdate("insert into CART_ITEMS (CART_ID, PRODUCT_NAME, QUANTITY) values (:cartId, :productName, :quantity)")
+    abstract void insertItem(@BindBean CartItem item);
 
     public ShoppingCart getCartByEmail(String email) {
         ShoppingCart cart = findByEmail(email);
@@ -39,7 +40,7 @@ public abstract class CartService {
 
     private void loadItems(ShoppingCart cart) {
         if (cart != null) {
-            List<CartItem> cartItems = cartItemDAO.loadItems(cart.getId());
+            List<CartItem> cartItems = loadItems(cart.getId());
             cart.addItems(cartItems);
             if (cart.getItemCount() != cartItems.size())
                 throw new IllegalStateException(String.format("De-normalized cart-item count %s doesn't match actual %s.", cart.getItemCount(), cartItems.size()));
@@ -71,7 +72,7 @@ public abstract class CartService {
         for (CartItem item : cart.getItems()) {
             if (item.getId() == null) {
                 item.setCartId(cart.getId());
-                cartItemDAO.insert(item);
+                insertItem(item);
             }
         }
     }

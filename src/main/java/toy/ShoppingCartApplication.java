@@ -1,6 +1,5 @@
 package toy;
 
-import toy.dao.CartItemDAO;
 import toy.dao.CartService;
 import toy.remote.NotificationService;
 import toy.resources.ShoppingCartResource;
@@ -32,8 +31,6 @@ public class ShoppingCartApplication extends Application<ShoppingCartConfigurati
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "h2");
 
         final CartService cartService = jdbi.onDemand(CartService.class);
-        CartItemDAO cartItemDAO = jdbi.onDemand(CartItemDAO.class);
-        cartService.setCartItemDAO(cartItemDAO);
         final CloseableHttpClient httpClient =  new HttpClientBuilder(environment).using(configuration.getHttpClientConfiguration()).build("notification_client");
         final ShoppingCartResource shoppingCartResource = new ShoppingCartResource(cartService, new NotificationService(httpClient));
 
